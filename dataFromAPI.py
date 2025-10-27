@@ -54,7 +54,7 @@ def fetch_all_pokemon_data(limit=100000):
     if failed_pokemon:
         print(f"✗ Failed to fetch {len(failed_pokemon)} Pokemon: {failed_pokemon}")
     
-    # Save to JSON file
+    # save to JSON file
     filename = 'all_pokemon_data.json'
     with open(filename, 'w') as f:
         json.dump(all_pokemon_data, f, indent=2)
@@ -92,6 +92,7 @@ if __name__ == "__main__":
 
 
     stored_pokemon = []
+    
     # only use fetch_all_pokemon_data once to store all pokemon data into .json file
     # fetch_all_pokemon_data(limit=100000)
 
