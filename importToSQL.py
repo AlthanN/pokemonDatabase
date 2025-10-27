@@ -41,19 +41,19 @@ def import_pokemon_into_sql(pokemon_json):
 
     try:
         for pokemon in pokemon_data:
-            types_str = ','.join(pokemon['types'])
+            types_str = ', '.join(pokemon['types'])
             cursor.execute('SELECT id FROM pokemon WHERE id = ?', (pokemon['id'],))
             exists = cursor.fetchone()
 
             #Update our current data of the pokemon if it exists
             if exists:
-                cursor.execute('' \
-                    'UPDATE pokemonDB' \
-                    'SET name = ?,' \
-                        'types = ?,' \
-                        'weight = ?,' \
-                    'WHERE id = ?',
-                (pokemon['name'], types_str, pokemon['weight'], pokemon['id']))
+                cursor.execute('''
+                    UPDATE pokemon
+                    SET name = ?,
+                        types = ?, 
+                        weight = ?
+                    WHERE id = ?
+                    ''', (pokemon['name'], types_str, pokemon['weight'], pokemon['id']))
             else: 
                 #Import current data of pokemon
                 cursor.execute('''
@@ -61,7 +61,7 @@ def import_pokemon_into_sql(pokemon_json):
                 VALUES (?, ?, ?, ?)
                 ''', (pokemon['id'], pokemon['name'], types_str, pokemon['weight']))
     except:
-        print(f"could not import into SQL")
+        print(f"could not import {pokemon['name']} into SQL")
         
     conn.commit()
     cursor.close()
