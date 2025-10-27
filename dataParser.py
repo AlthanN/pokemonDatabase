@@ -1,5 +1,8 @@
 import json
 
+#Parses through the .json files
+#Typically slow since you have to iterate through every item
+
 with open("all_pokemon_data.json", 'r') as file:
     pokemon_data = json.load(file)
 
